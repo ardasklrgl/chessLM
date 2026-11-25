@@ -1,0 +1,390 @@
+<!doctype html>
+<html lang="en" data-theme="dark" data-system="glaze">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#161616">
+  <title>ChessLM</title>
+  <link rel="stylesheet" href="/demo/style.css">
+  <script src="/demo/app.js" defer></script>
+</head>
+<body>
+  <!-- Lucide 0.468.0 and Colin M. L. Burnett piece artwork. See licenses/. -->
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="0" height="0" class="icon-library">
+    <symbol id="chesslm-icon-chevron-down" viewBox="0 0 24 24"><svg
+  class="lucide lucide-chevron-down"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="m6 9 6 6 6-6" /></symbol>
+    <symbol id="chesslm-icon-chevron-left" viewBox="0 0 24 24"><svg
+  class="lucide lucide-chevron-left"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="m15 18-6-6 6-6" /></symbol>
+    <symbol id="chesslm-icon-chevron-right" viewBox="0 0 24 24"><svg
+  class="lucide lucide-chevron-right"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="m9 18 6-6-6-6" /></symbol>
+    <symbol id="chesslm-icon-chevrons-left" viewBox="0 0 24 24"><svg
+  class="lucide lucide-chevrons-left"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="m11 17-5-5 5-5" />
+  <path d="m18 17-5-5 5-5" /></symbol>
+    <symbol id="chesslm-icon-chevrons-right" viewBox="0 0 24 24"><svg
+  class="lucide lucide-chevrons-right"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="m6 17 5-5-5-5" />
+  <path d="m13 17 5-5-5-5" /></symbol>
+    <symbol id="chesslm-icon-copy" viewBox="0 0 24 24"><svg
+  class="lucide lucide-copy"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <rect width="14" height="14" x="8" y="8" rx="2" ry="2" />
+  <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" /></symbol>
+    <symbol id="chesslm-icon-corner-down-left" viewBox="0 0 24 24"><svg
+  class="lucide lucide-corner-down-left"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <polyline points="9 10 4 15 9 20" />
+  <path d="M20 4v7a4 4 0 0 1-4 4H4" /></symbol>
+    <symbol id="chesslm-icon-dice-5" viewBox="0 0 24 24"><svg
+  class="lucide lucide-dice-5"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <rect width="18" height="18" x="3" y="3" rx="2" ry="2" />
+  <path d="M16 8h.01" />
+  <path d="M8 8h.01" />
+  <path d="M8 16h.01" />
+  <path d="M16 16h.01" />
+  <path d="M12 12h.01" /></symbol>
+    <symbol id="chesslm-icon-download" viewBox="0 0 24 24"><svg
+  class="lucide lucide-download"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+  <polyline points="7 10 12 15 17 10" />
+  <line x1="12" x2="12" y1="15" y2="3" /></symbol>
+    <symbol id="chesslm-icon-plus" viewBox="0 0 24 24"><svg
+  class="lucide lucide-plus"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M5 12h14" />
+  <path d="M12 5v14" /></symbol>
+    <symbol id="chesslm-icon-share" viewBox="0 0 24 24"><svg
+  class="lucide lucide-share"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8" />
+  <polyline points="16 6 12 2 8 6" />
+  <line x1="12" x2="12" y1="2" y2="15" /></symbol>
+    <symbol id="chesslm-icon-terminal" viewBox="0 0 24 24"><svg
+  class="lucide lucide-terminal"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <polyline points="4 17 10 11 4 5" />
+  <line x1="12" x2="20" y1="19" y2="19" /></symbol>
+    <symbol id="chesslm-icon-undo-2" viewBox="0 0 24 24"><svg
+  class="lucide lucide-undo-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M9 14 4 9l5-5" />
+  <path d="M4 9h10.5a5.5 5.5 0 0 1 5.5 5.5a5.5 5.5 0 0 1-5.5 5.5H11" /></symbol>
+    <symbol id="chesslm-icon-x" viewBox="0 0 24 24"><svg
+  class="lucide lucide-x"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M18 6 6 18" />
+  <path d="m6 6 12 12" /></symbol>
+  </svg>
+  <header class="toolbar glaze-frame">
+    <div class="toolbar-group glaze-panel">
+      <h1>chessLM</h1>
+    </div>
+    <div class="toolbar-group toolbar-controls glaze-panel">
+      <button id="analysis-toggle" type="button" aria-pressed="false" disabled><span id="analysis-label">Analysis off</span><span class="switch-track" aria-hidden="true"></span></button>
+      <div class="pane-controls" aria-label="Visible panels">
+        <button type="button" data-pane="ai" aria-controls="ai" aria-pressed="true"><span class="pane-icon pane-left" aria-hidden="true"></span>AI</button>
+        <button type="button" data-pane="terminal" aria-controls="terminal" aria-pressed="true"><span class="pane-icon pane-bottom" aria-hidden="true"></span>Terminal</button>
+        <button type="button" data-pane="moves" aria-controls="moves" aria-pressed="true"><span class="pane-icon pane-right" aria-hidden="true"></span>Moves</button>
+      </div>
+    </div>
+  </header>
+
+  <main id="workspace" class="workspace">
+    <aside id="ai" class="dock glaze-frame" aria-labelledby="ai-title">
+      <header class="dock-head glaze-panel">
+        <h2 id="ai-title">AI inspector</h2>
+        <button class="icon-button" type="button" data-close="ai" aria-label="Hide AI inspector"><svg class="control-icon" aria-hidden="true" viewBox="0 0 24 24"><use href="#chesslm-icon-chevron-left"></use></svg></button>
+      </header>
+      <div class="inspector">
+        <section aria-label="Model settings" class="settings glaze-panel">
+          <strong id="checkpoint" class="visually-hidden">Connecting…</strong>
+          <select id="side" hidden aria-label="Play as"><option value="w">White</option><option value="b">Black</option></select>
+          <label class="setting" for="temperature">Temperature
+            <select id="temperature"><option value="0">0 · Greedy</option><option value="0.3">0.3</option><option value="0.5">0.5</option><option value="0.8" selected>0.8</option><option value="1">1.0</option><option value="1.3">1.3</option><option value="2">2.0</option></select>
+          </label>
+          <label class="setting switch-setting" for="only-legal">
+            <span>Only Legal</span><input id="only-legal" type="checkbox" role="switch">
+          </label>
+        </section>
+        <section class="data-section glaze-panel" aria-labelledby="picks-title">
+          <h3 id="picks-title">chessLM distribution</h3>
+          <p class="hint" id="picks-caption">Play a move to see the model's picks.</p>
+          <ul class="data-rows" id="picks"></ul>
+          <p class="hint" id="illegal-mass" hidden></p>
+        </section>
+        <section class="data-section glaze-panel" aria-labelledby="engine-title">
+          <h3 id="engine-title">stockfish distribution</h3>
+          <p class="hint" id="engine-caption">Checking availability…</p>
+          <ul class="data-rows" id="engine-lines"></ul>
+        </section>
+      </div>
+      <div class="resize-handle" data-resize="ai" role="separator" tabindex="0" aria-label="AI inspector width" aria-controls="ai" aria-orientation="vertical"></div>
+    </aside>
+
+    <div class="editor">
+      <section class="stage glaze-frame" aria-label="Game board">
+
+        <div class="game glaze-panel">
+          <div class="player" id="top-player"></div>
+          <div class="board-wrap">
+            <div class="evaluation" id="evaluation" hidden role="img" aria-label="Stockfish evaluation">
+              <div id="evaluation-fill"></div>
+            </div>
+            <div id="board" class="board" aria-label="Chessboard"></div>
+          </div>
+          <div class="player" id="bottom-player"></div>
+          <div class="game-feedback" aria-live="polite">
+            <p id="game-status">Connecting to checkpoint…</p>
+            <button id="retry" type="button" hidden>Retry AI move</button>
+          </div>
+          <div class="board-actions" aria-label="Game controls">
+            <button type="button" id="new-game" class="glaze-primary"><svg class="control-icon" aria-hidden="true" viewBox="0 0 24 24"><use href="#chesslm-icon-plus"></use></svg><span>New game</span></button>
+            <div class="side-buttons" aria-label="Choose side">
+              <button type="button" data-side="w" aria-label="Play White" aria-pressed="true"><img class="side-piece" data-piece-art="wK" alt=""></button>
+              <button type="button" data-side="random" aria-label="Play a random side"><svg class="control-icon" aria-hidden="true" viewBox="0 0 24 24"><use href="#chesslm-icon-dice-5"></use></svg></button>
+              <button type="button" data-side="b" aria-label="Play Black" aria-pressed="false"><img class="side-piece" data-piece-art="bK" alt=""></button>
+            </div>
+            <button type="button" id="undo" aria-label="Undo" title="Undo"><svg class="control-icon" aria-hidden="true" viewBox="0 0 24 24"><use href="#chesslm-icon-undo-2"></use></svg></button>
+          </div>
+          <div id="promotion-panel" class="promotion" hidden>
+            <span>Promote to</span>
+            <button type="button" data-promotion="q">Queen</button>
+            <button type="button" data-promotion="r">Rook</button>
+            <button type="button" data-promotion="b">Bishop</button>
+            <button type="button" data-promotion="n">Knight</button>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <aside class="dock move-dock glaze-frame" id="moves" aria-labelledby="moves-title">
+      <header class="dock-head glaze-panel"><h2 id="moves-title">Moves</h2><button class="icon-button" type="button" data-close="moves" aria-label="Hide moves"><svg class="control-icon" aria-hidden="true" viewBox="0 0 24 24"><use href="#chesslm-icon-chevron-right"></use></svg></button><span id="ply-count" class="visually-hidden"></span></header>
+      <section class="analysis-summary glaze-panel" aria-label="Analysis">
+        <div><strong>Analysis</strong><span id="engine-status">Stockfish</span></div>
+        <ol id="analysis-lines"></ol>
+      </section>
+      <section class="move-history glaze-panel" aria-label="Move history">
+        <p class="opening-name" id="opening-name">Starting position</p>
+        <div id="move-scroll" class="move-scroll">
+          <p id="moves-empty" class="hint">Moves appear here as you play.</p>
+          <ol id="move-list" class="move-list"></ol>
+        </div>
+      </section>
+      <footer class="move-footer glaze-panel">
+        <nav class="replay-controls" aria-label="Replay controls">
+          <button type="button" data-replay="first" aria-label="First position"><svg class="control-icon" aria-hidden="true" viewBox="0 0 24 24"><use href="#chesslm-icon-chevrons-left"></use></svg></button>
+          <button type="button" data-replay="previous" aria-label="Previous position"><svg class="control-icon" aria-hidden="true" viewBox="0 0 24 24"><use href="#chesslm-icon-chevron-left"></use></svg></button>
+          <button type="button" data-replay="next" aria-label="Next position"><svg class="control-icon" aria-hidden="true" viewBox="0 0 24 24"><use href="#chesslm-icon-chevron-right"></use></svg></button>
+          <button type="button" data-replay="live" aria-label="Latest position"><svg class="control-icon" aria-hidden="true" viewBox="0 0 24 24"><use href="#chesslm-icon-chevrons-right"></use></svg></button>
+        </nav>
+        <button type="button" id="share-button" disabled><svg class="control-icon" aria-hidden="true" viewBox="0 0 24 24"><use href="#chesslm-icon-share"></use></svg><span>Share</span></button>
+      </footer>
+      <div class="resize-handle" data-resize="moves" role="separator" tabindex="0" aria-label="Moves pane width" aria-controls="moves" aria-orientation="vertical"></div>
+    </aside>
+
+      <section id="terminal" class="console glaze-frame" aria-label="Chess command console">
+        <header class="dock-head console-head glaze-panel">
+          <div class="console-tabs" role="tablist" aria-label="Console view">
+            <button type="button" id="terminal-tab" role="tab" aria-controls="console-output" aria-selected="true"><svg class="control-icon" aria-hidden="true" viewBox="0 0 24 24"><use href="#chesslm-icon-terminal"></use></svg><span>Terminal</span></button>
+            <button type="button" id="output-tab" role="tab" aria-controls="console-output" aria-selected="false" tabindex="-1">Model output</button>
+          </div>
+          <button class="icon-button" type="button" data-close="terminal" aria-label="Hide terminal"><svg class="control-icon" aria-hidden="true" viewBox="0 0 24 24"><use href="#chesslm-icon-chevron-down"></use></svg></button>
+        </header>
+        <div class="console-output glaze-panel" id="console-output" role="tabpanel" aria-labelledby="terminal-tab" tabindex="0">
+          <div class="terminal-meta"><span>SESSION</span><span id="terminal-analysis">ANALYSIS OFF</span></div>
+          <ol id="console-lines" aria-live="polite"></ol>
+        </div>
+        <form id="command-form" class="command-field glaze-panel">
+          <label for="command">chess ›</label>
+          <input id="command" type="text" placeholder="Enter a move or /help" spellcheck="false" autocomplete="off" autocapitalize="off">
+          <button type="submit" aria-label="Run command"><svg class="control-icon" aria-hidden="true" viewBox="0 0 24 24"><use href="#chesslm-icon-corner-down-left"></use></svg></button>
+        </form>
+      </section>
+  </main>
+
+  <footer class="visually-hidden">
+    <span id="connection" data-state="pending"><i aria-hidden="true"></i><span id="connection-text">Connecting</span></span>
+    <span>Standard chess</span>
+    <span id="status-mode">Free generation</span>
+    <span id="status-analysis">Analysis off</span>
+  </footer>
+  <dialog id="share-panel" class="glaze-frame" aria-labelledby="share-title">
+    <header class="share-head glaze-panel">
+      <h2 id="share-title">Share</h2>
+      <form method="dialog"><button type="submit" aria-label="Close share panel"><svg class="control-icon" aria-hidden="true" viewBox="0 0 24 24"><use href="#chesslm-icon-x"></use></svg></button></form>
+    </header>
+    <div class="share-tabs glaze-panel" role="tablist" aria-label="Share format">
+      <button type="button" role="tab" id="share-pgn-tab" aria-controls="share-pgn" aria-selected="true" data-share="pgn">PGN</button>
+      <button type="button" role="tab" id="share-image-tab" aria-controls="share-image" aria-selected="false" data-share="image" tabindex="-1">Image</button>
+      <button type="button" role="tab" id="share-embed-tab" aria-controls="share-embed" aria-selected="false" data-share="embed" tabindex="-1">Embed</button>
+    </div>
+    <div class="share-content glaze-panel">
+      <section role="tabpanel" id="share-pgn" aria-labelledby="share-pgn-tab">
+        <label for="share-fen">FEN</label>
+        <div class="share-field"><input id="share-fen" readonly><button type="button" data-copy="share-fen" aria-label="Copy FEN"><svg class="control-icon" aria-hidden="true" viewBox="0 0 24 24"><use href="#chesslm-icon-copy"></use></svg></button></div>
+        <label for="share-pgn-value">PGN</label>
+        <div class="share-field multiline"><textarea id="share-pgn-value" readonly rows="8"></textarea><button type="button" data-copy="share-pgn-value" aria-label="Copy PGN"><svg class="control-icon" aria-hidden="true" viewBox="0 0 24 24"><use href="#chesslm-icon-copy"></use></svg></button></div>
+      </section>
+      <section role="tabpanel" id="share-image" aria-labelledby="share-image-tab" hidden><canvas id="share-canvas" width="720" height="720" aria-label="Board image"></canvas></section>
+      <section role="tabpanel" id="share-embed" aria-labelledby="share-embed-tab" hidden>
+        <label for="share-embed-value">Embed code</label><div class="share-field multiline"><textarea id="share-embed-value" readonly rows="5"></textarea><button type="button" data-copy="share-embed-value" aria-label="Copy embed code"><svg class="control-icon" aria-hidden="true" viewBox="0 0 24 24"><use href="#chesslm-icon-copy"></use></svg></button></div>
+        <p class="hint">Available while the ChessLM server is running.</p>
+      </section>
+      <a id="share-download" class="glaze-primary" download><svg class="control-icon" aria-hidden="true" viewBox="0 0 24 24"><use href="#chesslm-icon-download"></use></svg><span>Download</span></a>
+      <p id="share-notice" role="status"></p>
+    </div>
+  </dialog>
+  <script id="piece-art" type="application/json">
+{
+  "bB": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHN0eWxlPSJjb2xvci1zY2hlbWU6bGlnaHQgb25seSIgd2lkdGg9IjQ1IiBoZWlnaHQ9IjQ1IiB2aWV3Qm94PSIwIDAgNDUgNDUiPjxnIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCIgc3Ryb2tlPSIjMDAwIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIHN0cm9rZS13aWR0aD0iMS41Ij48ZyBmaWxsPSIjMDAwIiBzdHJva2UtbGluZWNhcD0iYnV0dCI+PHBhdGggZD0iTTkgMzZjMy40LTEgMTAuMS40IDEzLjUtMiAzLjQgMi40IDEwLjEgMSAxMy41IDIgMCAwIDEuNi41IDMgMi0uNyAxLTEuNiAxLTMgLjUtMy40LTEtMTAuMS41LTEzLjUtMS0zLjQgMS41LTEwLjEgMC0xMy41IDEtMS40LjUtMi4zLjUtMy0uNSAxLjQtMiAzLTIgMy0yeiIvPjxwYXRoIGQ9Ik0xNSAzMmMyLjUgMi41IDEyLjUgMi41IDE1IDAgLjUtMS41IDAtMiAwLTIgMC0yLjUtMi41LTQtMi41LTQgNS41LTEuNSA2LTExLjUtNS0xNS41LTExIDQtMTAuNSAxNC01IDE1LjUgMCAwLTIuNSAxLjUtMi41IDQgMCAwLS41LjUgMCAyeiIvPjxwYXRoIGQ9Ik0yNSA4YTIuNSAyLjUgMCAxIDEtNSAwIDIuNSAyLjUgMCAxIDEgNSAweiIvPjwvZz48cGF0aCBzdHJva2U9IiNlY2VjZWMiIHN0cm9rZS1saW5lam9pbj0ibWl0ZXIiIGQ9Ik0xNy41IDI2aDEwTTE1IDMwaDE1bS03LjUtMTQuNXY1TTIwIDE4aDUiLz48L2c+PC9zdmc+",
+  "bK": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHN0eWxlPSJjb2xvci1zY2hlbWU6bGlnaHQgb25seSIgdmlld0JveD0iMCAwIDQ1IDQ1Ij48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIHN0cm9rZT0iIzAwMCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2Utd2lkdGg9IjEuNSI+PHBhdGggc3Ryb2tlLWxpbmVqb2luPSJtaXRlciIgZD0iTTIyLjUgMTEuNlY2Ii8+PHBhdGggZmlsbD0iIzAwMCIgc3Ryb2tlLWxpbmVjYXA9ImJ1dHQiIHN0cm9rZS1saW5lam9pbj0ibWl0ZXIiIGQ9Ik0yMi41IDI1czQuNS03LjUgMy0xMC41YzAgMC0xLTIuNS0zLTIuNXMtMyAyLjUtMyAyLjVjLTEuNSAzIDMgMTAuNSAzIDEwLjUiLz48cGF0aCBmaWxsPSIjMDAwIiBkPSJNMTEuNSAzN2EyMi4zIDIyLjMgMCAwIDAgMjEgMHYtN3M5LTQuNSA2LTEwLjVjLTQtNi41LTEzLjUtMy41LTE2IDRWMjd2LTMuNWMtMy41LTcuNS0xMy0xMC41LTE2LTQtMyA2IDUgMTAgNSAxMHoiLz48cGF0aCBzdHJva2UtbGluZWpvaW49Im1pdGVyIiBkPSJNMjAgOGg1Ii8+PHBhdGggc3Ryb2tlPSIjZWNlY2VjIiBkPSJNMzIgMjkuNXM4LjUtNCA2LTkuN0MzNC4xIDE0IDI1IDE4IDIyLjUgMjQuNnYyLjEtMi4xQzIwIDE4IDkuOSAxNCA3IDE5LjljLTIuNSA1LjYgNC44IDkgNC44IDkiLz48cGF0aCBzdHJva2U9IiNlY2VjZWMiIGQ9Ik0xMS41IDMwYzUuNS0zIDE1LjUtMyAyMSAwbS0yMSAzLjVjNS41LTMgMTUuNS0zIDIxIDBtLTIxIDMuNWM1LjUtMyAxNS41LTMgMjEgMCIvPjwvZz48L3N2Zz4=",
+  "bN": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHN0eWxlPSJjb2xvci1zY2hlbWU6bGlnaHQgb25seSIgd2lkdGg9IjQ1IiBoZWlnaHQ9IjQ1IiB2aWV3Qm94PSIwIDAgNDUgNDUiPjxnIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCIgc3Ryb2tlPSIjMDAwIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIHN0cm9rZS13aWR0aD0iMS41Ij48cGF0aCBmaWxsPSIjMDAwIiBkPSJNMjIgMTBjMTAuNSAxIDE2LjUgOCAxNiAyOUgxNWMwLTkgMTAtNi41IDgtMjEiLz48cGF0aCBmaWxsPSIjMDAwIiBkPSJNMjQgMThjLjM4IDIuOTEtNS41NSA3LjM3LTggOS0zIDItMi44MiA0LjM0LTUgNC0xLjA0LS45NCAxLjQxLTMuMDQgMC0zLTEgMCAuMTkgMS4yMy0xIDItMSAwLTQgMS00LTQgMC0yIDYtMTIgNi0xMnMxLjg5LTEuOSAyLTMuNWMtLjczLTEtLjUtMi0uNS0zIDEtMSAzIDIuNSAzIDIuNWgycy43OC0yIDIuNS0zYzEgMCAxIDMgMSAzIi8+PHBhdGggZmlsbD0iI2VjZWNlYyIgc3Ryb2tlPSIjZWNlY2VjIiBkPSJNOS41IDI1LjVhLjUuNSAwIDEgMS0xIDAgLjUuNSAwIDEgMSAxIDBtNS40My05Ljc1YS41IDEuNSAzMCAxIDEtLjg2LS41LjUgMS41IDMwIDEgMSAuODYuNSIvPjxwYXRoIGZpbGw9IiNlY2VjZWMiIHN0cm9rZT0ibm9uZSIgZD0ibTI0LjU1IDEwLjQtLjQ1IDEuNDUuNS4xNWMzLjE1IDEgNS42NSAyLjQ5IDcuOSA2Ljc1UzM1Ljc1IDI5LjA2IDM1LjI1IDM5bC0uMDUuNWgyLjI1bC4wNS0uNWMuNS0xMC4wNi0uODgtMTYuODUtMy4yNS0yMS4zNHMtNS43OS02LjY0LTkuMTktNy4xNnoiLz48L2c+PC9zdmc+",
+  "bP": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHN0eWxlPSJjb2xvci1zY2hlbWU6bGlnaHQgb25seSIgd2lkdGg9IjQ1IiBoZWlnaHQ9IjQ1IiB2aWV3Qm94PSIwIDAgNDUgNDUiPjxwYXRoIHN0cm9rZT0iIzAwMCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2Utd2lkdGg9IjEuNSIgZD0iTTIyLjUgOWE0IDQgMCAwIDAtMy4yMiA2LjM4IDYuNDggNi40OCAwIDAgMC0uODcgMTAuNjVjLTMgMS4wNi03LjQxIDUuNTUtNy40MSAxMy40N2gyM2MwLTcuOTItNC40MS0xMi40MS03LjQxLTEzLjQ3YTYuNDYgNi40NiAwIDAgMC0uODctMTAuNjVBNC4wMSA0LjAxIDAgMCAwIDIyLjUgOXoiLz48L3N2Zz4=",
+  "bQ": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHN0eWxlPSJjb2xvci1zY2hlbWU6bGlnaHQgb25seSIgd2lkdGg9IjQ1IiBoZWlnaHQ9IjQ1IiB2aWV3Qm94PSIwIDAgNDUgNDUiPjxnIGZpbGwtcnVsZT0iZXZlbm9kZCIgc3Ryb2tlPSIjMDAwIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIHN0cm9rZS13aWR0aD0iMS41Ij48ZyBzdHJva2U9Im5vbmUiPjxjaXJjbGUgY3g9IjYiIGN5PSIxMiIgcj0iMi43NSIvPjxjaXJjbGUgY3g9IjE0IiBjeT0iOSIgcj0iMi43NSIvPjxjaXJjbGUgY3g9IjIyLjUiIGN5PSI4IiByPSIyLjc1Ii8+PGNpcmNsZSBjeD0iMzEiIGN5PSI5IiByPSIyLjc1Ii8+PGNpcmNsZSBjeD0iMzkiIGN5PSIxMiIgcj0iMi43NSIvPjwvZz48cGF0aCBzdHJva2UtbGluZWNhcD0iYnV0dCIgZD0iTTkgMjZjOC41LTEuNSAyMS0xLjUgMjcgMGwyLjUtMTIuNUwzMSAyNWwtLjMtMTQuMS01LjIgMTMuNi0zLTE0LjUtMyAxNC41LTUuMi0xMy42TDE0IDI1IDYuNSAxMy41eiIvPjxwYXRoIHN0cm9rZS1saW5lY2FwPSJidXR0IiBkPSJNOSAyNmMwIDIgMS41IDIgMi41IDQgMSAxLjUgMSAxIC41IDMuNS0xLjUgMS0xLjUgMi41LTEuNSAyLjUtMS41IDEuNS41IDIuNS41IDIuNSA2LjUgMSAxNi41IDEgMjMgMCAwIDAgMS41LTEgMC0yLjUgMCAwIC41LTEuNS0xLTIuNS0uNS0yLjUtLjUtMiAuNS0zLjUgMS0yIDIuNS0yIDIuNS00LTguNS0xLjUtMTguNS0xLjUtMjcgMHoiLz48cGF0aCBmaWxsPSJub25lIiBzdHJva2UtbGluZWNhcD0iYnV0dCIgZD0iTTExIDM4LjVhMzUgMzUgMSAwIDAgMjMgMCIvPjxwYXRoIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2VjZWNlYyIgZD0iTTExIDI5YTM1IDM1IDEgMCAxIDIzIDBtLTIxLjUgMi41aDIwbS0yMSAzYTM1IDM1IDEgMCAwIDIyIDBtLTIzIDNhMzUgMzUgMSAwIDAgMjQgMCIvPjwvZz48L3N2Zz4=",
+  "bR": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHN0eWxlPSJjb2xvci1zY2hlbWU6bGlnaHQgb25seSIgd2lkdGg9IjQ1IiBoZWlnaHQ9IjQ1IiB2aWV3Qm94PSIwIDAgNDUgNDUiPjxnIGZpbGwtcnVsZT0iZXZlbm9kZCIgc3Ryb2tlPSIjMDAwIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIHN0cm9rZS13aWR0aD0iMS41Ij48cGF0aCBzdHJva2UtbGluZWNhcD0iYnV0dCIgZD0iTTkgMzloMjd2LTNIOXptMy41LTcgMS41LTIuNWgxN2wxLjUgMi41em0tLjUgNHYtNGgyMXY0eiIvPjxwYXRoIHN0cm9rZS1saW5lY2FwPSJidXR0IiBzdHJva2UtbGluZWpvaW49Im1pdGVyIiBkPSJNMTQgMjkuNXYtMTNoMTd2MTN6Ii8+PHBhdGggc3Ryb2tlLWxpbmVjYXA9ImJ1dHQiIGQ9Ik0xNCAxNi41IDExIDE0aDIzbC0zIDIuNXpNMTEgMTRWOWg0djJoNVY5aDV2Mmg1VjloNHY1eiIvPjxwYXRoIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2VjZWNlYyIgc3Ryb2tlLWxpbmVqb2luPSJtaXRlciIgc3Ryb2tlLXdpZHRoPSIxIiBkPSJNMTIgMzUuNWgyMW0tMjAtNGgxOW0tMTgtMmgxN20tMTctMTNoMTdNMTEgMTRoMjMiLz48L2c+PC9zdmc+",
+  "wB": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHN0eWxlPSJjb2xvci1zY2hlbWU6bGlnaHQgb25seSIgd2lkdGg9IjQ1IiBoZWlnaHQ9IjQ1IiB2aWV3Qm94PSIwIDAgNDUgNDUiPjxnIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCIgc3Ryb2tlPSIjMDAwIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIHN0cm9rZS13aWR0aD0iMS41Ij48ZyBmaWxsPSIjZmZmIiBzdHJva2UtbGluZWNhcD0iYnV0dCI+PHBhdGggZD0iTTkgMzZjMy4zOS0uOTcgMTAuMTEuNDMgMTMuNS0yIDMuMzkgMi40MyAxMC4xMSAxLjAzIDEzLjUgMiAwIDAgMS42NS41NCAzIDItLjY4Ljk3LTEuNjUuOTktMyAuNS0zLjM5LS45Ny0xMC4xMS40Ni0xMy41LTEtMy4zOSAxLjQ2LTEwLjExLjAzLTEzLjUgMS0xLjM1LjQ5LTIuMzIuNDctMy0uNSAxLjM1LTEuOTQgMy0yIDMtMnoiLz48cGF0aCBkPSJNMTUgMzJjMi41IDIuNSAxMi41IDIuNSAxNSAwIC41LTEuNSAwLTIgMC0yIDAtMi41LTIuNS00LTIuNS00IDUuNS0xLjUgNi0xMS41LTUtMTUuNS0xMSA0LTEwLjUgMTQtNSAxNS41IDAgMC0yLjUgMS41LTIuNSA0IDAgMC0uNS41IDAgMnoiLz48cGF0aCBkPSJNMjUgOGEyLjUgMi41IDAgMSAxLTUgMCAyLjUgMi41IDAgMSAxIDUgMHoiLz48L2c+PHBhdGggc3Ryb2tlLWxpbmVqb2luPSJtaXRlciIgZD0iTTE3LjUgMjZoMTBNMTUgMzBoMTVtLTcuNS0xNC41djVNMjAgMThoNSIvPjwvZz48L3N2Zz4=",
+  "wK": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHN0eWxlPSJjb2xvci1zY2hlbWU6bGlnaHQgb25seSIgdmlld0JveD0iMCAwIDQ1IDQ1Ij48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIHN0cm9rZT0iIzAwMCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2Utd2lkdGg9IjEuNSI+PHBhdGggc3Ryb2tlLWxpbmVqb2luPSJtaXRlciIgZD0iTTIyLjUgMTEuNjNWNk0yMCA4aDUiLz48cGF0aCBmaWxsPSIjZmZmIiBzdHJva2UtbGluZWNhcD0iYnV0dCIgc3Ryb2tlLWxpbmVqb2luPSJtaXRlciIgZD0iTTIyLjUgMjVzNC41LTcuNSAzLTEwLjVjMCAwLTEtMi41LTMtMi41cy0zIDIuNS0zIDIuNWMtMS41IDMgMyAxMC41IDMgMTAuNSIvPjxwYXRoIGZpbGw9IiNmZmYiIGQ9Ik0xMS41IDM3YzUuNSAzLjUgMTUuNSAzLjUgMjEgMHYtN3M5LTQuNSA2LTEwLjVjLTQtNi41LTEzLjUtMy41LTE2IDRWMjd2LTMuNWMtMy41LTcuNS0xMy0xMC41LTE2LTQtMyA2IDUgMTAgNSAxMHoiLz48cGF0aCBkPSJNMTEuNSAzMGM1LjUtMyAxNS41LTMgMjEgMG0tMjEgMy41YzUuNS0zIDE1LjUtMyAyMSAwbS0yMSAzLjVjNS41LTMgMTUuNS0zIDIxIDAiLz48L2c+PC9zdmc+",
+  "wN": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHN0eWxlPSJjb2xvci1zY2hlbWU6bGlnaHQgb25seSIgd2lkdGg9IjQ1IiBoZWlnaHQ9IjQ1IiB2aWV3Qm94PSIwIDAgNDUgNDUiPjxnIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCIgc3Ryb2tlPSIjMDAwIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIHN0cm9rZS13aWR0aD0iMS41Ij48cGF0aCBmaWxsPSIjZmZmIiBkPSJNMjIgMTBjMTAuNSAxIDE2LjUgOCAxNiAyOUgxNWMwLTkgMTAtNi41IDgtMjEiLz48cGF0aCBmaWxsPSIjZmZmIiBkPSJNMjQgMThjLjM4IDIuOTEtNS41NSA3LjM3LTggOS0zIDItMi44MiA0LjM0LTUgNC0xLjA0Mi0uOTQgMS40MS0zLjA0IDAtMy0xIDAgLjE5IDEuMjMtMSAyLTEgMC00LjAwMyAxLTQtNCAwLTIgNi0xMiA2LTEyczEuODktMS45IDItMy41Yy0uNzMtLjk5NC0uNS0yLS41LTMgMS0xIDMgMi41IDMgMi41aDJzLjc4LTEuOTkyIDIuNS0zYzEgMCAxIDMgMSAzIi8+PHBhdGggZmlsbD0iIzAwMCIgZD0iTTkuNSAyNS41YS41LjUgMCAxIDEtMSAwIC41LjUgMCAxIDEgMSAwbTUuNDMzLTkuNzVhLjUgMS41IDMwIDEgMS0uODY2LS41LjUgMS41IDMwIDEgMSAuODY2LjUiLz48L2c+PC9zdmc+",
+  "wP": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHN0eWxlPSJjb2xvci1zY2hlbWU6bGlnaHQgb25seSIgd2lkdGg9IjQ1IiBoZWlnaHQ9IjQ1IiB2aWV3Qm94PSIwIDAgNDUgNDUiPjxwYXRoIGZpbGw9IiNmZmYiIHN0cm9rZT0iIzAwMCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2Utd2lkdGg9IjEuNSIgZD0iTTIyLjUgOWMtMi4yMSAwLTQgMS43OS00IDQgMCAuODkuMjkgMS43MS43OCAyLjM4QzE3LjMzIDE2LjUgMTYgMTguNTkgMTYgMjFjMCAyLjAzLjk0IDMuODQgMi40MSA1LjAzLTMgMS4wNi03LjQxIDUuNTUtNy40MSAxMy40N2gyM2MwLTcuOTItNC40MS0xMi40MS03LjQxLTEzLjQ3IDEuNDctMS4xOSAyLjQxLTMgMi40MS01LjAzIDAtMi40MS0xLjMzLTQuNS0zLjI4LTUuNjIuNDktLjY3Ljc4LTEuNDkuNzgtMi4zOCAwLTIuMjEtMS43OS00LTQtNHoiLz48L3N2Zz4=",
+  "wQ": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHN0eWxlPSJjb2xvci1zY2hlbWU6bGlnaHQgb25seSIgd2lkdGg9IjQ1IiBoZWlnaHQ9IjQ1IiB2aWV3Qm94PSIwIDAgNDUgNDUiPjxnIGZpbGw9IiNmZmYiIGZpbGwtcnVsZT0iZXZlbm9kZCIgc3Ryb2tlPSIjMDAwIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIHN0cm9rZS13aWR0aD0iMS41Ij48cGF0aCBkPSJNOCAxMmEyIDIgMCAxIDEtNCAwIDIgMiAwIDEgMSA0IDBtMTYuNS00LjVhMiAyIDAgMSAxLTQgMCAyIDIgMCAxIDEgNCAwTTQxIDEyYTIgMiAwIDEgMS00IDAgMiAyIDAgMSAxIDQgME0xNiA4LjVhMiAyIDAgMSAxLTQgMCAyIDIgMCAxIDEgNCAwTTMzIDlhMiAyIDAgMSAxLTQgMCAyIDIgMCAxIDEgNCAwIi8+PHBhdGggc3Ryb2tlLWxpbmVjYXA9ImJ1dHQiIGQ9Ik05IDI2YzguNS0xLjUgMjEtMS41IDI3IDBsMi0xMi03IDExVjExbC01LjUgMTMuNS0zLTE1LTMgMTUtNS41LTE0VjI1TDcgMTR6Ii8+PHBhdGggc3Ryb2tlLWxpbmVjYXA9ImJ1dHQiIGQ9Ik05IDI2YzAgMiAxLjUgMiAyLjUgNCAxIDEuNSAxIDEgLjUgMy41LTEuNSAxLTEuNSAyLjUtMS41IDIuNS0xLjUgMS41LjUgMi41LjUgMi41IDYuNSAxIDE2LjUgMSAyMyAwIDAgMCAxLjUtMSAwLTIuNSAwIDAgLjUtMS41LTEtMi41LS41LTIuNS0uNS0yIC41LTMuNSAxLTIgMi41LTIgMi41LTQtOC41LTEuNS0xOC41LTEuNS0yNyAweiIvPjxwYXRoIGZpbGw9Im5vbmUiIGQ9Ik0xMS41IDMwYzMuNS0xIDE4LjUtMSAyMiAwTTEyIDMzLjVjNi0xIDE1LTEgMjEgMCIvPjwvZz48L3N2Zz4=",
+  "wR": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHN0eWxlPSJjb2xvci1zY2hlbWU6bGlnaHQgb25seSIgd2lkdGg9IjQ1IiBoZWlnaHQ9IjQ1IiB2aWV3Qm94PSIwIDAgNDUgNDUiPjxnIGZpbGw9IiNmZmYiIGZpbGwtcnVsZT0iZXZlbm9kZCIgc3Ryb2tlPSIjMDAwIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIHN0cm9rZS13aWR0aD0iMS41Ij48cGF0aCBzdHJva2UtbGluZWNhcD0iYnV0dCIgZD0iTTkgMzloMjd2LTNIOXptMy0zdi00aDIxdjR6bS0xLTIyVjloNHYyaDVWOWg1djJoNVY5aDR2NSIvPjxwYXRoIGQ9Im0zNCAxNC0zIDNIMTRsLTMtMyIvPjxwYXRoIHN0cm9rZS1saW5lY2FwPSJidXR0IiBzdHJva2UtbGluZWpvaW49Im1pdGVyIiBkPSJNMzEgMTd2MTIuNUgxNFYxNyIvPjxwYXRoIGQ9Im0zMSAyOS41IDEuNSAyLjVoLTIwbDEuNS0yLjUiLz48cGF0aCBmaWxsPSJub25lIiBzdHJva2UtbGluZWpvaW49Im1pdGVyIiBkPSJNMTEgMTRoMjMiLz48L2c+PC9zdmc+"
+}
+  </script>
+</body>
+</html>
