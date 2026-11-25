@@ -1,0 +1,10 @@
+.DS_Store
+run*/
+*.pt
+*.pth
+*.pgn
+*.pgn.zst
+labels.json
+*-evaluation.json
+duel.json
+__pycache__/
